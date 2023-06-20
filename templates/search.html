@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='logo-circle.png') }}">
+	<title>Torrentwave - Search Results</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		.background-image {
+			position: absolute; /* Position the background image */
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			filter: blur(8px); /* Apply the blur effect */
+			z-index: -1; /* Set the z-index to display behind other content */
+		}
+		body {
+			background-color: #f8f9fa;
+			padding-top: 50px;
+		}
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		h1 {
+			margin-bottom: 30px;
+			font-weight: bold;
+			color: #333;
+		}
+		.btn {
+			margin-top: 20px;	
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+		li {
+			background-color: #fff;
+			border-radius: 5px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			text-align: left;
+		}
+		strong {
+			font-weight: bold;
+		}
+		.btn-primary {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		<img src="{{ url_for('static', filename='logotext.png') }}" alt="TorrentWave Logo" class="mt-6 center" width="40%">
+		<h1 class="mt-5">Search Results</h1>
+		<a href="/" class="btn btn-secondary mt-4">Back</a><br>
+		<ul class="mt-2">
+			{% for result in results %}
+			<li class="mb-2">
+				<strong>Title:</strong> {{ result['title'] }}<br>
+				<strong>Seeders:</strong> {{ result['seeders'] }}<br>
+				<strong>File Size (GB):</strong> {{ result['filesize_gb'] }}<br>
+					<!-- Added file size -->
+				<a href="{{ result['hash'] }}" class="btn btn-success"><img src="https://knaben.ru/resources/tpb/img/icons/icon-magnet.gif"> Download</a>
+				{% if result.years or '1080p' in result.title or '720p' in result.title or '480p' in result.title %}
+				<form action="/video-preview" method="get">
+					<input type="hidden" name="query" value="{{ result['title'] }}">
+						
+					<button type="submit" class="btn btn-info">Video Preview</button>
+						
+				</form>
+				{% endif %}
+
+
+
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+</html>
