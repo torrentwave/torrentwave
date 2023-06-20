@@ -5,6 +5,18 @@ import random
 import qbittorrentapi
 import re
 import json
+import sqlite3
+import pandas as pd
+import requests
+with open('torrents.csv', "ab") as torrents:
+    rn = requests.get("https://git.torrents-csv.ml/heretic/torrents-csv-data/raw/branch/main/torrents.csv") 
+    torrents.write(rn.text.encode('utf-8'))
+    
+df = pd.read_csv('torrents.csv')
+df.columns = df.columns.str.strip()
+connection = sqlite3.connect("demo.db")
+df.to_sql('titles',connection, if_exists='replace',)
+connection.close() 
 
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
