@@ -1,4 +1,4 @@
 Flask
-youtubesearchpython
+youtube-search-python
 qbittorrentapi
 pandas
