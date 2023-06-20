@@ -118,4 +118,4 @@ def video_preview():
     
 
 
-app.run(host='0.0.0.0', port=8031)
+app.run(host='0.0.0.0')
