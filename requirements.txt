@@ -1,4 +1,4 @@
 Flask
 youtube-search-python
-qbittorrentapi
+qbittorrent-api
 pandas
